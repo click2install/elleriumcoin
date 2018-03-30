@@ -1,6 +1,6 @@
 # Ellerium Coin
 
-Shell script to install a [Ellerium Masternode](https://bitcointalk.org/index.php?topic=2837413.0) on a Linux server running Ubuntu 16.04.
+Shell script to install an [Ellerium Masternode](https://bitcointalk.org/index.php?topic=2837413.0) on a Linux server running Ubuntu 16.04.
 
 
 ## Installation 
