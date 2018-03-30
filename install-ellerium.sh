@@ -387,10 +387,9 @@ echo -e "The script will output ${YELLOW}questions${NC}, ${GREEN}information${NC
 echo -e "When finished the script will show a summary of what has been done."
 echo
 echo -e "Script created by click2install"
-echo -e " - GitHub: https://github.com/click2install"
+echo -e " - GitHub: https://github.com/click2install/elleriumcoin"
 echo -e " - Discord: click2install#9625"
-echo -e " - Ellerium: "
-echo -e " - Bitcoin: "
+echo -e " - Ellerium: AS3ydEoyLE3AB1TfJpPYJccbNoLCHf8ttH"
 echo 
 echo -e "========================================================================================================="
 echo
