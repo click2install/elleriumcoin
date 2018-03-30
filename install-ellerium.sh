@@ -379,7 +379,7 @@ echo -e " - Obtain the latest Ellerium masternode files from the Ellerium GitHub
 echo -e " - Create a user and password to run the Ellerium masternode service"
 echo -e " - Install the Ellerium masternode service"
 echo -e " - Update your system with a non-standard SSH port (optional)"
-echo -e " - Add DDoS protection using fail2ban (optional)"
+echo -e " - Add DDoS protection using fail2ban"
 echo -e " - Update the system firewall to only allow; SSH, the masternode ports and outgoing connections"
 echo -e " - Add some scheduled tasks for system maintenance"
 echo
