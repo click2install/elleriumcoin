@@ -133,23 +133,10 @@ function enable_firewall()
   ufw default allow outgoing >/dev/null 2>&1
 
   echo "y" | ufw enable >/dev/null 2>&1
-}
 
-function ask_fail2ban()
-{
-  default_fail_2_ban = "y"
-  read -e -p "$(echo -e $YELLOW Do you want to install fail2ban for additional server security: $NC)" -i $default_fail_2_ban FAIL_2_BAN
-}
-
-function enable_fail2ban()
-{
-  if [[ ("$FAIL_2_BAN" == "y" || "$FAIL_2_BAN" == "Y") ]]; then
-
-    echo -e "${GREEN}Installing fail2ban for additional server security.${NC}"
-
-    systemctl enable fail2ban >/dev/null 2>&1
-    systemctl start fail2ban >/dev/null 2>&1
-  fi
+  echo -e "${GREEN}Setting up fail2ban for additional server security."
+  systemctl enable fail2ban >/dev/null 2>&1
+  systemctl start fail2ban >/dev/null 2>&1
 }
 
 function add_daemon_service() 
@@ -354,10 +341,6 @@ function show_output()
  echo -e " ATTENTION: you have changed your SSH port, make sure you modify your SSH client to use port $SSH_PORTNUMBER so you can login."
  fi
  echo 
- echo -e "GETINFO:"
- echo
- ${CLI_BINARY} -datadir=$DATA_DIR getinfo
- echo
  echo -e "================================================================================================================================"
  echo
 }
@@ -370,8 +353,6 @@ function setup_node()
   create_config
   create_key
   update_config
-  ask_fail2ban
-  ask_fail2ban
   enable_firewall
   add_daemon_service
   add_log_truncate
