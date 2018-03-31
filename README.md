@@ -2,6 +2,18 @@
 
 Shell script to install an [Ellerium Masternode](https://bitcointalk.org/index.php?topic=2837413.0) on a Linux server running Ubuntu 16.04.
 
+## Installation 
+```
+wget -q https://raw.githubusercontent.com/click2install/elleriumcoin/master/install-ellerium.sh  
+bash install-ellerium.sh
+```
+
+Donations for the creation and maintenance of this script are welcome at:
+&nbsp;
+
+ELLERIUM: AS3ydEoyLE3AB1TfJpPYJccbNoLCHf8ttH
+
+&nbsp;
 
 ## How to setup your masternode with this script and a cold wallet on your PC
 The script assumes you are running a cold wallet on your local PC and this script will execute on a Ubuntu Linux VPS (server). The steps involved are:
@@ -30,17 +42,6 @@ You are now ready to configure your local wallet and finish the masternode setup
  16. Click the row for the masternode you just added
  17. Right click > Start Alias
  18. Your node should now be running successfully.
-
-## Installation 
-```
-wget -q https://raw.githubusercontent.com/click2install/elleriumcoin/master/install-ellerium.sh  
-bash install-ellerium.sh
-```
-
-Donations for the creation and maintenance of this script are welcome at:
-&nbsp;
-
-ELLERIUM: AS3ydEoyLE3AB1TfJpPYJccbNoLCHf8ttH
 
 &nbsp;
 
