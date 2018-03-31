@@ -330,7 +330,7 @@ function show_output()
  echo -e " - auto start when your VPS is rebooted."
  echo -e " - clear the ${GREEN}$LOG_FILE${NC} log file every 2nd day."
  echo
- echo -e "You can interrogate your masternode using the following commands when logged in as $USERNAME:"
+ echo -e "You can interrogate your masternode using the following commands when logged in as $USER_NAME:"
  echo -e " - ${GREEN}${CLI_BINARY} stop${NC} to stop the daemon"
  echo -e " - ${GREEN}${DAEMON_BINARY} -daemon${NC} to start the daemon"
  echo -e " - ${GREEN}${CLI_BINARY} getinfo${NC} to retreive your nodes status and information"
