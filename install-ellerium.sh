@@ -9,7 +9,7 @@ DAEMON_BINARY="elleriumd"
 CLI_BINARY="ellerium-cli"
 DAEMON_BINARY_FILE="/usr/local/bin/$DAEMON_BINARY"
 CLI_BINARY_FILE="/usr/local/bin/$CLI_BINARY"
-DAEMON_ZIP="https://github.com/ElleriumProject/Elleriumv2/releases/download/2.8.1/ellerium_linux_2.8.1.tar.gz"
+DAEMON_ZIP="https://github.com/ElleriumProject/Elleriumv2/files/2023392/linux.daemon.zip"
 GITHUB_REPO="https://github.com/ElleriumProject/Elleriumv2"
 
 RED='\033[0;31m'
@@ -98,12 +98,12 @@ function deploy_binary()
   else
     cd $TMP_FOLDER
 
-    archive=ellerium.tar.gz
+    archive=ellerium.zip
 
     echo -e "${GREEN}Downloading $DAEMON_ZIP and deploying the Ellerium service.${NC}"
     wget $DAEMON_ZIP -O $archive >/dev/null 2>&1
 
-    tar -xvzf $archive >/dev/null 2>&1
+    unzip $archive -d . >/dev/null 2>&1
     rm $archive
 
     cp elleriumd /usr/local/bin/ >/dev/null 2>&1
