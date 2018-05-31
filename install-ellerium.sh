@@ -106,8 +106,8 @@ function deploy_binary()
     unzip $archive -d . >/dev/null 2>&1
     rm $archive
 
-    cp "linux ubuntu 16.04/elleriumd" /usr/local/bin/ >/dev/null 2>&1
-    cp "linux ubuntu 16.04/ellerium-cli" /usr/local/bin/ >/dev/null 2>&1
+    cp "./linux ubuntu 16.04/elleriumd" /usr/local/bin/ >/dev/null 2>&1
+    cp "./linux ubuntu 16.04/ellerium-cli" /usr/local/bin/ >/dev/null 2>&1
 
     chmod +x /usr/local/bin/ellerium*;
 
