@@ -9,7 +9,7 @@ DAEMON_BINARY="elleriumd"
 CLI_BINARY="ellerium-cli"
 DAEMON_BINARY_FILE="/usr/local/bin/$DAEMON_BINARY"
 CLI_BINARY_FILE="/usr/local/bin/$CLI_BINARY"
-DAEMON_ZIP="https://github.com/ElleriumProject/Elleriumv2/files/2031996/linux.walletV6.1.1.zip"
+DAEMON_ZIP="https://github.com/ElleriumProject/Elleriumv2/releases/download/V2.0.0.0/linux_daemon.zip"
 GITHUB_REPO="https://github.com/ElleriumProject/Elleriumv2"
 
 RED='\033[0;31m'
@@ -106,8 +106,8 @@ function deploy_binary()
     unzip $archive -d . >/dev/null 2>&1
     rm $archive
 
-    cp "./linux ubuntu 16.04/elleriumd" /usr/local/bin/ >/dev/null 2>&1
-    cp "./linux ubuntu 16.04/ellerium-cli" /usr/local/bin/ >/dev/null 2>&1
+    cp "./daemon/elleriumd" /usr/local/bin/ >/dev/null 2>&1
+    cp "./daemon/ellerium-cli" /usr/local/bin/ >/dev/null 2>&1
 
     chmod +x /usr/local/bin/ellerium*;
 
@@ -245,22 +245,16 @@ server=1
 daemon=1
 staking=1
 port=$DAEMON_PORT
-addnode=steeppool.com
-addnode=31.148.81.34
-addnode=176.9.80.233
-addnode=173.212.201.123
-addnode=173.249.10.34:6110
-addnode=188.167.144.142:6110
-addnode=212.158.160.125:6110
-addnode=77.20.107.36:6110
-addnode=78.128.183.143:6110
-addnode=46.0.173.217:6110
-addnode=31.148.81.34
-addnode=94.249.192.89:6110
-addnode=93.184.160.141:6110
-addnode=90.154.221.254:6110
-addnode=83.69.16.203:6110
-addnode=5.166.162.137:6110
+89.188.110.239
+95.183.13.34
+45.77.230.28
+92.255.26.86
+45.32.155.75
+80.211.151.201
+80.211.220.226
+212.237.7.29
+80.211.181.227
+80.211.238.252
 EOF
 }
 
@@ -383,13 +377,16 @@ echo -e " - Add DDoS protection using fail2ban"
 echo -e " - Update the system firewall to only allow; SSH, the masternode ports and outgoing connections"
 echo -e " - Add some scheduled tasks for system maintenance"
 echo
+echo -e " The files will be downloaded and installed from:"
+echo -e " ${GREEN}${DAEMON_ZIP}${NC}"
+echo
 echo -e "The script will output ${YELLOW}questions${NC}, ${GREEN}information${NC} and ${RED}errors${NC}"
 echo -e "When finished the script will show a summary of what has been done."
 echo
 echo -e "Script created by click2install"
 echo -e " - GitHub: https://github.com/click2install/elleriumcoin"
 echo -e " - Discord: click2install#9625"
-echo -e " - Ellerium: AS3ydEoyLE3AB1TfJpPYJccbNoLCHf8ttH"
+echo -e " - BTC: 1DJdhFp6CiVZSBSsXcecp1FnuHXDcsYQPu"
 echo 
 echo -e "========================================================================================================="
 echo

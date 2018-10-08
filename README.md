@@ -11,7 +11,7 @@ bash install-ellerium.sh
 Donations for the creation and maintenance of this script are welcome at:
 &nbsp;
 
-ELLERIUM: AS3ydEoyLE3AB1TfJpPYJccbNoLCHf8ttH
+BTC: 1DJdhFp6CiVZSBSsXcecp1FnuHXDcsYQPu
 
 &nbsp;
 
