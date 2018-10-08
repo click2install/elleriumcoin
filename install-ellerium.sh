@@ -3,7 +3,7 @@
 TMP_FOLDER=$(mktemp -d)
 CONFIG_FILE="ellerium.conf"
 DEFAULT_USER="ellerium-mn1"
-DEFAULT_PORT=6110
+DEFAULT_PORT=9850
 DEFAULT_SSH_PORT=22
 DAEMON_BINARY="elleriumd"
 CLI_BINARY="ellerium-cli"
