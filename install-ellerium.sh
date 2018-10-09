@@ -150,8 +150,8 @@ Type=forking
 User=$USER_NAME
 Group=$USER_NAME
 WorkingDirectory=$DATA_DIR
-ExecStart=$DAEMON_BINARY_FILE -datadir=$DATA_DIR -daemon
-ExecStop=$CLI_BINARY_FILE -datadir=$DATA_DIR stop
+ExecStart=$DAEMON_BINARY_FILE -datadir=$DATA_DIR -conf=$DATA_DIR/mainnet/ellerium.conf -daemon
+ExecStop=$CLI_BINARY_FILE -datadir=$DATA_DIR -conf=$DATA_DIR/mainnet/ellerium.conf stop
 Restart=always
 PrivateTmp=true
 TimeoutStopSec=60s
@@ -199,6 +199,7 @@ function ask_user()
     DATA_DIR="$home_dir/.ellerium"
         
     mkdir -p $DATA_DIR
+    mkdir -p $DATA_DIR/mainnet
     chown -R $USER_NAME: $DATA_DIR >/dev/null 2>&1
     
     sudo -u $USER_NAME bash -c : && RUNAS="sudo -u $USER_NAME"
@@ -235,7 +236,7 @@ function create_config()
 {
   RPCUSER=$(pwgen -s 8 1)
   RPCPASSWORD=$(pwgen -s 15 1)
-  cat << EOF > $DATA_DIR/$CONFIG_FILE
+  cat << EOF > $DATA_DIR/mainnet/$CONFIG_FILE
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
 rpcallowip=127.0.0.1
@@ -264,44 +265,48 @@ function create_key()
 
   if [[ -z "$PRIV_KEY" ]]; then
     sudo -u $USER_NAME $DAEMON_BINARY_FILE -datadir=$DATA_DIR -daemon >/dev/null 2>&1
-    sleep 5
+    sleep 20
 
     if [ -z "$(pidof $DAEMON_BINARY)" ]; then
     echo -e "${RED}Ellerium deamon couldn't start, could not generate a private key. Check /var/log/syslog for errors.${NC}"
     exit 1
     fi
 
-    PRIV_KEY=$(sudo -u $USER_NAME $CLI_BINARY_FILE -datadir=$DATA_DIR masternode genkey) 
-    sudo -u $USER_NAME $CLI_BINARY_FILE -datadir=$DATA_DIR stop >/dev/null 2>&1
+    PRIV_KEY=$(sudo -u $USER_NAME $CLI_BINARY_FILE -datadir=$DATA_DIR -conf=$DATA_DIR/mainnet/ellerium.conf masternode genkey) 
+    sudo -u $USER_NAME $CLI_BINARY_FILE -datadir=$DATA_DIR -conf=$DATA_DIR/mainnet/ellerium.conf stop >/dev/null 2>&1
   fi
 }
 
 function update_config() 
 {
   DAEMON_IP=$(ip route get 1 | awk '{print $NF;exit}')
-  cat << EOF >> $DATA_DIR/$CONFIG_FILE
+  cat << EOF >> $DATA_DIR/mainnet/$CONFIG_FILE
 logtimestamps=1
 maxconnections=256
 masternode=1
 masternodeaddr=$DAEMON_IP:$DAEMON_PORT
 masternodeprivkey=$PRIV_KEY
 EOF
-  chown $USER_NAME: $DATA_DIR/$CONFIG_FILE >/dev/null
+  chown $USER_NAME: $DATA_DIR/mainnet/$CONFIG_FILE >/dev/null
 }
 
 function add_log_truncate()
 {
-  LOG_FILE="$DATA_DIR/debug.log";
+  LOG_FILE="$DATA_DIR/mainnet/debug.log";
 
   mkdir ~/.ellerium >/dev/null 2>&1
-  cat << EOF >> ~/.ellerium/clearlog-$USER_NAME.sh
-/bin/date > $LOG_FILE
+  cat << EOF >> $DATA_DIR/logrotate.conf
+$DATA_DIR/mainnet/*.log {
+    rotate 4
+    weekly
+    compress
+    missingok
+    notifempty
+}
 EOF
 
-  chmod +x ~/.ellerium/clearlog-$USER_NAME.sh
-
-  if ! crontab -l | grep "~/ellerium/clearlog-$USER_NAME.sh"; then
-    (crontab -l ; echo "0 0 */2 * * ~/.ellerium/clearlog-$USER_NAME.sh") | crontab -
+  if ! crontab -l | grep "/home/$USER_NAME/logrotate.conf"; then
+    (crontab -l ; echo "1 0 * * 1 /usr/sbin/logrotate $DATA_DIR/logrotate.conf --state $DATA_DIR/logrotate-state") | crontab -
   fi
 }
 
@@ -313,7 +318,7 @@ function show_output()
  echo -e "Your Ellerium coin master node is up and running." 
  echo -e " - it is running as user ${GREEN}$USER_NAME${NC} and it is listening on port ${GREEN}$DAEMON_PORT${NC} at your VPS address ${GREEN}$DAEMON_IP${NC}."
  echo -e " - the ${GREEN}$USER_NAME${NC} password is ${GREEN}$USER_PASSWORD${NC}"
- echo -e " - the Ellerium configuration file is located at ${GREEN}$DATA_DIR/$CONFIG_FILE${NC}"
+ echo -e " - the Ellerium configuration file is located at ${GREEN}$DATA_DIR/mainnet/$CONFIG_FILE${NC}"
  echo -e " - the masternode privkey is ${GREEN}$PRIV_KEY${NC}"
  echo
  echo -e "You can manage your Ellerium service from the cmdline with the following commands:"
